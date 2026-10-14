@@ -1,0 +1,360 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#eaf6ff" />
+    <title>For My Favorite Person 💙</title>
+    <style>
+      :root {
+        --sky: #cfeaff;
+        --baby: #eaf6ff;
+        --ice: #f8fcff;
+        --blue: #6fb4eb;
+        --blue-strong: #438fd0;
+        --blue-deep: #285f8f;
+        --ink: #294963;
+        --muted: #68849c;
+        --white: rgba(255,255,255,.84);
+        --line: rgba(105, 169, 219, .28);
+        --shadow: 0 20px 60px rgba(61, 126, 177, .13);
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0; min-height: 100vh; overflow-x: hidden; color: var(--ink);
+        font-family: Georgia, 'Times New Roman', serif;
+        background:
+          radial-gradient(ellipse at 5% 4%, #cce9ff 0%, transparent 31%),
+          radial-gradient(ellipse at 96% 23%, #dff2ff 0%, transparent 32%),
+          linear-gradient(145deg, #eaf6ff 0%, #f9fcff 48%, #e5f3ff 100%);
+      }
+      button { font: inherit; }
+      .sky { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+      .cloud { position: absolute; width: 125px; height: 35px; border-radius: 999px; background: rgba(255,255,255,.66); filter: blur(.3px); }
+      .cloud:before,.cloud:after { content:''; position:absolute; border-radius:50%; background:inherit; bottom:7px; }
+      .cloud:before { width:54px;height:54px;left:18px; }
+      .cloud:after { width:42px;height:42px;left:61px; }
+      .cloud.c1 { top: 10%; left: -36px; transform: scale(.8); }
+      .cloud.c2 { top: 36%; right: -42px; transform: scale(1.1); }
+      .cloud.c3 { top: 72%; left: -48px; transform: scale(.7); }
+      .sparkle { position:absolute; color:#83bdec; animation: twinkle 3s ease-in-out infinite; }
+      .sparkle.s1 { top:18%;right:13%;font-size:20px; }
+      .sparkle.s2 { top:57%;left:8%;font-size:14px;animation-delay:1s; }
+      .sparkle.s3 { top:82%;right:9%;font-size:17px;animation-delay:1.5s; }
+      .wrap { width:min(920px, calc(100% - 28px)); margin:auto; padding:22px 0 44px; position:relative; z-index:1; }
+      .eyebrow { text-align:center; color:var(--blue-strong); text-transform:uppercase; letter-spacing:.22em; font:700 .7rem/1.6 Arial,sans-serif; margin:10px 0 22px; }
+      .hero,.panel { background:var(--white); border:1px solid var(--line); box-shadow:var(--shadow); backdrop-filter:blur(12px); }
+      .hero { text-align:center; padding:clamp(30px,7vw,68px) 20px; border-radius:32px; position:relative; overflow:hidden; }
+      .hero:before,.hero:after { content:'✦'; position:absolute; color:#8fc9f5; font-size:22px; animation:twinkle 2.7s infinite; }
+      .hero:before { left:25px;top:25px; }.hero:after { right:27px;bottom:25px;animation-delay:.8s; }
+      .heart-logo { display:inline-block; font-size:2.45rem; filter:drop-shadow(0 5px 9px #8ec9f466); animation:heartbeat 1.8s ease-in-out infinite; }
+      h1 { color:var(--blue-deep); font-weight:500; font-size:clamp(2.35rem,8vw,5.2rem); line-height:1.04; margin:14px 0 17px; letter-spacing:-.035em; }
+      .hero-copy { max-width:540px; margin:0 auto; color:var(--muted); font:1rem/1.85 Arial,sans-serif; }
+      .date-chip { display:inline-flex; gap:8px; align-items:center; margin:23px 0 5px; padding:10px 17px; border-radius:999px; background:#e2f2ff; border:1px solid #c8e5fb; color:var(--blue-deep); font:700 .84rem Arial,sans-serif; }
+      .actions { display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-top:24px; }
+      .btn { min-height:46px; border:0; border-radius:999px; padding:13px 21px; cursor:pointer; font:700 .9rem Arial,sans-serif; transition:transform .2s,box-shadow .2s; }
+      .btn:hover { transform:translateY(-2px); box-shadow:0 9px 22px #4d9bd233; }
+      .btn-main { color:white; background:linear-gradient(135deg,#83c7f7,#438fd0); box-shadow:0 8px 20px #4d9bd226; }
+      .btn-light { color:var(--blue-deep); background:#fff; border:1px solid #c5e2f8; }
+      .panel { margin-top:22px; padding:clamp(23px,5vw,39px); border-radius:27px; }
+      h2 { color:var(--blue-deep); font-weight:500; font-size:clamp(1.6rem,5vw,2.25rem); text-align:center; margin:0 0 13px; }
+      .section-note { text-align:center; max-width:580px; margin:0 auto 22px; color:var(--muted); font: .93rem/1.7 Arial,sans-serif; }
+      .letter { max-width:680px; margin:auto; white-space:pre-line; overflow-wrap:anywhere; font-size:1.07rem; line-height:1.95; }
+      .signature { margin-top:20px; text-align:right; color:var(--blue-strong); font-style:italic; font-size:1.08rem; }
+      .counter { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; max-width:640px; margin:25px auto 0; }
+      .count-card { text-align:center; padding:20px 8px; border-radius:19px; border:1px solid #d1e9fb; background:linear-gradient(145deg,#f3faff,#e0f2ff); }
+      .count-num { display:block; color:var(--blue-deep); font:700 clamp(1.65rem,6vw,2.6rem)/1.2 Arial,sans-serif; }
+      .count-label { display:block; margin-top:7px; color:#6988a3; font:700 .67rem Arial,sans-serif; letter-spacing:.12em; text-transform:uppercase; }
+      .counter-caption { margin:18px auto 0; text-align:center; color:var(--muted); font: .9rem/1.7 Arial,sans-serif; }
+      .gallery { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:13px; }
+      .photo { position:relative; overflow:hidden; aspect-ratio:4/5; min-height:135px; border:7px solid white; border-radius:17px; background:linear-gradient(145deg,#cce8ff,#f3faff); box-shadow:0 8px 22px #5c9aca20; display:grid; place-items:center; text-align:center; }
+      .photo img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+      .photo .placeholder { position:relative; padding:10px; color:#4f82ad; font: .86rem/1.6 Arial,sans-serif; }
+      .photo:has(img) .placeholder { display:none; }
+
+      /* A dedicated blue rose section, separate from the photo gallery */
+      .blue-rose-card {
+        position:relative; width:min(100%,680px); min-height:300px; overflow:hidden;
+        margin:0 auto; border:1px solid #c7e5fb; border-radius:24px;
+        background:radial-gradient(circle at 50% 25%,#fff 0%,#eaf6ff 48%,#d7ecff 100%);
+        box-shadow:0 12px 30px #5c9aca20;
+        display:flex; flex-direction:column; align-items:center; justify-content:center;
+        gap:12px; text-align:center; padding:24px;
+      }
+      .blue-rose-card:before,.blue-rose-card:after { content:'♥'; position:absolute; color:#8fc9f4; opacity:.55; font-size:26px; animation:twinkle 3s ease-in-out infinite; }
+      .blue-rose-card:before { top:24px; left:10%; transform:rotate(-15deg); }
+      .blue-rose-card:after { bottom:28px; right:11%; transform:rotate(15deg); animation-delay:1s; }
+      .blue-rose-card svg { width:min(52%,220px); min-width:155px; height:auto; overflow:visible; filter:drop-shadow(0 5px 5px #438fd033); }
+      .blue-rose-caption { color:#3d79ae; font:italic 1.05rem/1.7 Georgia,serif; max-width:470px; }
+      .promise { max-width:660px; margin:auto; text-align:center; font-size:1.12rem; line-height:1.9; }
+      .closing { text-align:center; padding:25px 10px 0; color:#6d8ba5; font: .82rem/1.9 Arial,sans-serif; }
+      .closing .big-heart { font-size:1.2rem; }
+      .float-heart { position:fixed; bottom:-40px; z-index:5; pointer-events:none; animation:floatUp linear forwards; filter:drop-shadow(0 3px 5px #5797c42c); }
+      #confetti { position:fixed; inset:0; width:100%; height:100%; z-index:10; pointer-events:none; }
+      @keyframes heartbeat { 0%,100%{transform:scale(1)} 18%{transform:scale(1.16)} 36%{transform:scale(1)} 54%{transform:scale(1.1)} }
+      @keyframes twinkle { 0%,100%{opacity:.45;transform:scale(.85) rotate(0)} 50%{opacity:1;transform:scale(1.15) rotate(18deg)} }
+      @keyframes floatUp { 0%{transform:translateY(0) rotate(0);opacity:0} 12%{opacity:.9} 100%{transform:translateY(-115vh) rotate(35deg);opacity:0} }
+      @media(max-width:560px) {
+        .wrap { width:calc(100% - 18px); padding-top:10px; }
+        .hero { border-radius:24px; }.panel { border-radius:21px; margin-top:15px; }
+        .gallery { gap:7px; }.photo { border-width:4px; min-height:100px; border-radius:12px; }.photo .placeholder { font-size:.72rem; }
+        .blue-rose-card { min-height:250px; border-radius:18px; padding:18px 12px; gap:9px; }
+        .blue-rose-card svg { width:58%; min-width:135px; }
+        .blue-rose-caption { font-size:.9rem; }
+        .counter { gap:7px; }.count-card { padding:15px 4px; border-radius:14px; }.count-label { font-size:.57rem;letter-spacing:.04em; }
+        .letter { font-size:1rem; }.hero:before { left:15px;top:17px; }.hero:after { right:16px;bottom:17px; }
+      }
+      /* Hidden surprise overlay: its message stays secret until the button is clicked. */
+      .reveal-overlay { position:fixed; inset:0; z-index:20; display:grid; place-items:center; padding:20px; background:rgba(28,68,104,.42); backdrop-filter:blur(8px); opacity:0; visibility:hidden; transition:opacity .35s ease,visibility .35s ease; }
+      .reveal-overlay.is-open { opacity:1; visibility:visible; }
+      .reveal-card { position:relative; width:min(100%,520px); padding:clamp(28px,6vw,46px) 24px; text-align:center; border:1px solid #c5e4fb; border-radius:28px; background:radial-gradient(circle at top,#fff 0%,#edf8ff 55%,#d9efff 100%); box-shadow:0 24px 80px #1e56804d; transform:translateY(18px) scale(.96); transition:transform .4s cubic-bezier(.2,.8,.2,1); overflow:hidden; }
+      .reveal-overlay.is-open .reveal-card { transform:translateY(0) scale(1); }
+      .reveal-card:before,.reveal-card:after { content:'✦'; position:absolute; color:#72b9ee; font-size:24px; animation:twinkle 2s ease-in-out infinite; }
+      .reveal-card:before { top:18px; left:22px; }.reveal-card:after { right:22px; bottom:18px; animation-delay:.8s; }
+      .reveal-icon { display:block; font-size:3.3rem; margin-bottom:12px; animation:heartbeat 2s ease-in-out infinite; }
+      .reveal-title { margin:0 0 12px; color:var(--blue-deep); font-size:clamp(1.7rem,6vw,2.35rem); font-weight:500; }
+      .reveal-message { margin:0 auto 22px; max-width:400px; color:#4f7390; font:1rem/1.9 Arial,sans-serif; }
+      .reveal-close { border:1px solid #c5e2f8; border-radius:999px; padding:11px 20px; background:#fff; color:var(--blue-deep); cursor:pointer; font:700 .9rem Arial,sans-serif; }
+      .reveal-card.magic-mode { background:radial-gradient(circle at 50% 0%,#fff 0%,#e6f4ff 48%,#c9e6ff 100%); }
+      .reveal-card.magic-mode .reveal-icon { animation:magicPulse 1.4s ease-in-out infinite; }
+      @keyframes magicPulse { 0%,100%{transform:scale(1) rotate(-5deg);filter:drop-shadow(0 0 0 #83c7f7)} 50%{transform:scale(1.18) rotate(7deg);filter:drop-shadow(0 0 16px #83c7f7)} }
+      @media(prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important; animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; } }
+    </style>
+  </head>
+  <body>
+    <div class="sky" aria-hidden="true">
+      <div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div>
+      <span class="sparkle s1">✧</span><span class="sparkle s2">✦</span><span class="sparkle s3">✧</span>
+    </div>
+    <canvas id="confetti" aria-hidden="true"></canvas>
+
+    <main class="wrap">
+      <div class="eyebrow">a little love note, floating just for you</div>
+      <header class="hero">
+        <div class="heart-logo" aria-hidden="true">💙</div>
+        <h1>Happy Monthsary,<br><span id="partner-title">My Love</span></h1>
+        <p class="hero-copy" id="hero-message">In a world full of colors, you will always be my favorite shade of blue. 🩵</p>
+        <div class="date-chip" id="date-chip">☁ Every 15th is our little celebration</div>
+        <div class="actions">
+          <button class="btn btn-main" id="open-letter">Open your little surprise 💌</button>
+          <button class="btn btn-light" id="more-confetti">A little more magic ✨</button>
+        </div>
+      </header>
+
+      <section class="panel" id="letter-section">
+        <h2>A Letter From My Heart 🩵</h2>
+        <p class="section-note">A few words for the girl who makes my days brighter.</p>
+        <div class="letter" id="letter-content">To the Love of my Life,
+
+  Happy monthsary, my Love! 💙 I hope you are doing well. Thank you for being part of my live. Every moment is special because of you by my side. Being far from you is not been easy. I am longing for your love. I miss you so much!
+
+  Even though we have constant altrecations, we always fix it no matter what. I may not always choose the right words, and I may not understand you most of the time; I will keep trying to show you how much you meant to me in many ways that I can.
+
+  No matter comes our way, we will fight and hold our ground. I hope we keep choosing each other. I will always choose you, as long as I live. I Love You!!!  🩵</div>
+        <div class="signature" id="signature">Always yours, Lei Lei 💙</div>
+      </section>
+
+      <section class="panel" id="blue-rose-section">
+        <h2>A Blue Rose for You 🌹</h2>
+        <p class="section-note">A little flower for someone who means so much to me.</p>
+        <div class="blue-rose-card" aria-label="A blue rose, a little symbol of our love">
+          <svg viewBox="0 0 180 220" role="img" aria-labelledby="blueRoseTitle">
+            <title id="blueRoseTitle">Blue rose</title>
+            <defs>
+              <linearGradient id="petalBlue" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#d9efff"/>
+                <stop offset="48%" stop-color="#72b9ee"/>
+                <stop offset="100%" stop-color="#347fc0"/>
+              </linearGradient>
+              <linearGradient id="petalDark" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#a8d9ff"/>
+                <stop offset="100%" stop-color="#2869a8"/>
+              </linearGradient>
+              <linearGradient id="leafGreen" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#9fd8b4"/>
+                <stop offset="100%" stop-color="#398b69"/>
+              </linearGradient>
+            </defs>
+            <path d="M91 105 C91 137 95 164 88 190" fill="none" stroke="#398b69" stroke-width="6" stroke-linecap="round"/>
+            <path d="M91 151 C67 123 42 135 49 151 C59 166 78 163 91 151Z" fill="url(#leafGreen)" stroke="#398b69" stroke-width="1.5"/>
+            <path d="M91 169 C112 140 137 146 132 162 C126 175 108 178 91 169Z" fill="url(#leafGreen)" stroke="#398b69" stroke-width="1.5"/>
+            <path d="M53 148 Q72 151 87 155 M130 158 Q112 165 96 169" fill="none" stroke="#d8f4df" stroke-width="1.7" stroke-linecap="round"/>
+            <path d="M90 112 C54 116 35 91 48 65 C57 47 77 52 88 67 C91 45 116 38 132 57 C151 80 126 109 90 112Z" fill="url(#petalDark)" stroke="#4d91cc" stroke-width="1.5"/>
+            <path d="M88 106 C57 105 45 82 61 64 C72 51 88 68 92 81 C105 58 128 63 132 82 C136 99 112 111 88 106Z" fill="url(#petalBlue)" stroke="#6fb4eb" stroke-width="1.5"/>
+            <path d="M88 99 C69 95 67 77 80 70 C91 64 103 76 98 86 C112 77 121 91 110 99 C104 105 94 103 88 99Z" fill="#438fd0" stroke="#d9efff" stroke-width="1.5"/>
+            <path d="M84 90 C79 80 90 73 97 81 C103 87 94 91 91 87 C94 96 106 91 105 84 C114 94 101 104 90 100 C82 98 78 94 84 90Z" fill="#c7e7ff" stroke="#438fd0" stroke-width="1.5"/>
+            <path d="M72 58 Q82 52 91 68 M111 54 Q124 58 128 70" fill="none" stroke="#eff9ff" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M88 190 Q90 195 95 190" fill="none" stroke="#398b69" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+          <div class="blue-rose-caption">If I could give you one flower, it would be a blue rose — rare, beautiful, and as special as the love I have for you. 💙</div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Little Memories of Us 📷</h2>
+        <p class="section-note">These spaces are waiting for your favorite photos together.</p>
+        <div class="gallery">
+
+          <div class="photo">
+            <img src="C:\Users\Lei\OneDrive\Pictures\Saved Pictures\123.jpg" alt="Our favorite memory together">
+            <span class="placeholder">📸<br>Our favorite memory</span>
+          </div>
+          
+          <div class="photo">
+            <img src="C:\Users\Lei\OneDrive\Pictures\Saved Pictures\213.jpg" alt="A special day together">
+            <span class="placeholder">☁️<br>A day I'll remember</span>
+          </div>
+
+          <div class="photo">
+            <img src="C:\Users\Lei\OneDrive\Pictures\Saved Pictures\321.jpg" alt="A happy memory">
+            <span class="placeholder">💙<br>Just us being us</span>
+          </div>
+
+
+          
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>A Little Promise 🤍</h2>
+        <p class="promise" id="promise-text">I promise that I will never leave your side even in hard times. I promise that I will keep listening, and learning how to Love you better. I will not give up for us. I want to keep growing with you until the end of time.   💙</p>
+      </section>
+
+      <footer class="closing"><span class="big-heart">💙</span><br>Made with love, especially for you.<br><span id="start-caption"></span></footer>
+    </main>
+
+    <div class="reveal-overlay" id="reveal-overlay" role="dialog" aria-modal="true" aria-labelledby="reveal-title" aria-describedby="reveal-message" aria-hidden="true">
+      <div class="reveal-card" id="reveal-card">
+        <span class="reveal-icon" id="reveal-icon" aria-hidden="true">💌</span>
+        <h2 class="reveal-title" id="reveal-title">A little secret for you</h2>
+        <p class="reveal-message" id="reveal-message"></p>
+        <button class="reveal-close" id="reveal-close" type="button">Keep this in my heart 💙</button>
+      </div>
+    </div>
+
+    <script>
+      /* =====================================================
+         QUICK CUSTOMIZATION — change your details right here!
+         Date format: YYYY-MM-DD (year-month-day)
+         ===================================================== */
+      const SETTINGS = {
+        yourName: "Me",
+        partnerName: "My Love",
+        relationshipStart: "2025-06-15", // Change this to your real anniversary date
+        heroMessage: "In a world full of colors, you will always be my favorite shade of blue. 🩵",
+        promise: "I promise that I will never leave your side even in hard times. I promise that I will keep listening, and learning how to Love you better. I will not give up for us. I want to keep growing with you until the end of time. 💙",
+        letter: `My favorite person,
+
+  Happy monthsary, my Love! 💙 I hope you are doing well. Thank you for being part of my live. Every moment is special because of you by my side. Being far from you is not been easy. I am longing for your love. I miss you so much!
+
+  Even though we have constant altrecations, we always fix it no matter what. I may not always choose the right words, and I may not understand you most of the time; I will keep trying to show you how much you meant to me in many ways that I can.
+
+  No matter comes our way, we will fight and hold our ground. I hope we keep choosing each other. I will always choose you, as long as I live. I Love You!!! 💙`
+      };
+
+      document.title = `Happy Monthsary, ${SETTINGS.partnerName} 💙`;
+      document.getElementById('partner-title').textContent = SETTINGS.partnerName;
+      document.getElementById('hero-message').textContent = SETTINGS.heroMessage;
+      document.getElementById('letter-content').textContent = SETTINGS.letter;
+      document.getElementById('signature').textContent = `Always yours, ${SETTINGS.yourName} 💙`;
+      document.getElementById('promise-text').textContent = SETTINGS.promise;
+
+      // Blue, white, and icy-lavender confetti; no external libraries needed.
+      const canvas = document.getElementById('confetti');
+      const ctx = canvas.getContext('2d');
+      let confetti = [], raf = null;
+      function resizeCanvas() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = Math.floor(innerWidth * dpr); canvas.height = Math.floor(innerHeight * dpr);
+        canvas.style.width = `${innerWidth}px`; canvas.style.height = `${innerHeight}px`;
+        ctx.setTransform(dpr,0,0,dpr,0,0);
+      }
+      addEventListener('resize', resizeCanvas); resizeCanvas();
+      function burstConfetti(amount=150) {
+        const palette = ['#72b9ee','#b8e2ff','#eaf7ff','#ffffff','#438fd0','#b8cfff'];
+        for (let i=0;i<amount;i++) confetti.push({
+          x:Math.random()*innerWidth, y:-20-Math.random()*innerHeight*.35,
+          w:4+Math.random()*6,h:6+Math.random()*8,
+          color:palette[Math.floor(Math.random()*palette.length)],
+          vx:(Math.random()-.5)*3.4,vy:2+Math.random()*4,rot:Math.random()*Math.PI,
+          spin:(Math.random()-.5)*.16,life:100+Math.random()*75
+        });
+        if (!raf) drawConfetti();
+      }
+      function drawConfetti() {
+        ctx.clearRect(0,0,innerWidth,innerHeight);
+        confetti = confetti.filter(p=>p.life>0 && p.y<innerHeight+30);
+        for (const p of confetti) {
+          p.x+=p.vx; p.y+=p.vy; p.vy+=.025; p.rot+=p.spin; p.life--;
+          ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot);ctx.fillStyle=p.color;
+          ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);ctx.restore();
+        }
+        if(confetti.length) raf=requestAnimationFrame(drawConfetti);
+        else {cancelAnimationFrame(raf);raf=null;ctx.clearRect(0,0,innerWidth,innerHeight);}
+      }
+      function floatHearts(amount=12) {
+        const icons=['💙','🩵','🤍','♡'];
+        for(let i=0;i<amount;i++) {
+          const el=document.createElement('span');el.className='float-heart';
+          el.textContent=icons[Math.floor(Math.random()*icons.length)];
+          el.style.left=`${Math.random()*100}%`;el.style.fontSize=`${15+Math.random()*20}px`;
+          el.style.animationDuration=`${4+Math.random()*4}s`;document.body.appendChild(el);
+          el.addEventListener('animationend',()=>el.remove());
+        }
+      }
+      const revealOverlay = document.getElementById('reveal-overlay');
+      const revealCard = document.getElementById('reveal-card');
+      const revealIcon = document.getElementById('reveal-icon');
+      const revealTitle = document.getElementById('reveal-title');
+      const revealMessage = document.getElementById('reveal-message');
+      const revealClose = document.getElementById('reveal-close');
+      const magicNotes = [
+        "If I could pause one moment in time, I would choose a moment with you. Somehow, ordinary days become my favorite memories when you're in them. 💙",
+        "Here's your reminder from the universe: you are loved, you are precious to me, and you make my world softer just by being in it. ✨",
+        "If every little blue sparkle were a reason I love you, the whole sky still wouldn't be enough. 🩵",
+        "A tiny bit of magic for you: somewhere in all the noise of this world, my heart will always know its way back to you. 🌙",
+        "Today's secret wish: may I keep making you smile, holding your hand, and choosing you through every chapter still to come. 💌"
+      ];
+      let lastMagicNote = -1;
+      function openReveal(mode) {
+        const isMagic = mode === 'magic';
+        revealCard.classList.toggle('magic-mode', isMagic);
+        if (isMagic) {
+          let pick;
+          do { pick = Math.floor(Math.random() * magicNotes.length); } while (magicNotes.length > 1 && pick === lastMagicNote);
+          lastMagicNote = pick;
+          revealIcon.textContent = ['✨','🌙','🪄','💫','🩵'][Math.floor(Math.random()*5)];
+          revealTitle.textContent = 'A little more magic';
+          revealMessage.textContent = magicNotes[pick];
+          burstConfetti(230); floatHearts(22);
+        } else {
+          revealIcon.textContent = '💌';
+          revealTitle.textContent = 'A secret just for you';
+          revealMessage.textContent = 'Psst… no matter how many miles are between us, you have a special place in my heart that belongs only to you. You are my favorite hello, my hardest goodbye, and the person I keep choosing. I love you, always. 💙';
+          burstConfetti(170); floatHearts(15);
+        }
+        revealOverlay.classList.add('is-open');
+        revealOverlay.setAttribute('aria-hidden','false');
+        revealClose.focus();
+      }
+      function closeReveal() {
+        revealOverlay.classList.remove('is-open');
+        revealOverlay.setAttribute('aria-hidden','true');
+      }
+      document.getElementById('open-letter').addEventListener('click',()=>openReveal('surprise'));
+      document.getElementById('more-confetti').addEventListener('click',()=>openReveal('magic'));
+      revealClose.addEventListener('click',closeReveal);
+      revealOverlay.addEventListener('click',(event)=>{if(event.target===revealOverlay) closeReveal();});
+      document.addEventListener('keydown',(event)=>{if(event.key==='Escape' && revealOverlay.classList.contains('is-open')) closeReveal();});
+      addEventListener('load',()=>{setTimeout(()=>burstConfetti(100),350);floatHearts(8);});
+
+      /* ADD PHOTOS:
+         Put a photo (example: us.jpg) in the same folder as this HTML file.
+         Replace one placeholder in the gallery with:
+         <div class="photo"><img src="us.jpg" alt="A favorite memory together"><span class="placeholder">Our favorite memory</span></div>
+         Keep your photos in the same folder when sharing/hosting the website.
+      */
+    </script>
+  </body>
+  </html>
